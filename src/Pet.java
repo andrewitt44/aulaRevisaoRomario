@@ -35,7 +35,7 @@ public class Pet {
         diminuirIndiceHigiene(25);
     }
 
-    public void brincar(Brincadeira brincadeira){
+    public void brincar(Brincadeira brincadeira) throws AtributoNaoEncontradoOuSemAcessoException{
 
         aumentarIndice("diversao",
                 brincadeira.getDivertimento());
@@ -121,7 +121,7 @@ public class Pet {
         }
     }
 
-    private void diminuirIndice(String nomeAtributo, int valor) {
+    private void diminuirIndice(String nomeAtributo, int valor) throws AtributoNaoEncontradoOuSemAcessoException {
         try {
             Field atributo = Pet.class.getField(nomeAtributo);
             atributo.setAccessible(true);
@@ -140,7 +140,7 @@ public class Pet {
 
         } catch (NoSuchFieldException |
                  IllegalAccessException e) {
-            System.out.println("Deu ruim!");
+            throw new AtributoNaoEncontradoOuSemAcessoException();
         }
     }
 
